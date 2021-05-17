@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="datos.Control" table="control">
+		<id column="idControl" name="idControl">
+			<generator class="identity" />
+		</id>
+		<property name="tipo" column="tipo" type="string" />
+		<property name="estado" column="estado" type="string" />
+		<property name="hora" column="hora" type="LocalTime" />
+		<many-to-one
+			name="inspeccion" class="datos.Inspeccion" column="idInspeccion" not-null="true">
+		</many-to-one>
+
+		<joined-subclass name="datos.Medicion"
+			table="medicion">
+			<key column="idMedicion" />
+			<property column="valor" name="valor" type="double" />
+		</joined-subclass>
+
+		<joined-subclass name="datos.Observacion"
+			table="observacion">
+			<key column="idObservacion" />
+			<property column="legajoInspector" name="legajoInspector"
+				type="int" />
+			<property column="observacion" name="observacion"
+				type="string" />
+		</joined-subclass>
+
+	</class>
+</hibernate-mapping>

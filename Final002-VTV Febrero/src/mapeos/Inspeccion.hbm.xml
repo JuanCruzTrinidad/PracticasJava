@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="datos.Inspeccion" table="inspeccion">
+	    <id column="idInspeccion" name="idInspeccion">
+	      <generator class="identity"/>
+	    </id>
+	    <property column="fecha" name="fecha" type="LocalDate"/>
+	    <property column="estado" name="estado" type="string"/>
+	    
+	    <many-to-one name="automotor" class="datos.Automotor"
+            column="idAutomotor" not-null="true"/>
+            
+		<set name="controles" table="control" order-by="idControl asc" 
+		inverse="true" 	lazy="false" fetch="select">
+			<key column="idControl" not-null="true" />
+			<one-to-many class="datos.Control" />
+		</set>
+	       
+	</class> 
+</hibernate-mapping>
